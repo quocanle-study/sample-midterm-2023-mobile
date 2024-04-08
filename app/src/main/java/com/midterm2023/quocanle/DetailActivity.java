@@ -23,20 +23,25 @@ public class DetailActivity extends AppCompatActivity {
 //            return insets;
 //        });
 
+        // binding layout
         binding = ActivityDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // set toolbar
         setSupportActionBar(binding.toolbar);
 
+        // get student from intent
         Intent intent = getIntent();
         int position = intent.getIntExtra("student", 0);
         Student student = MainActivity.getInstance().studentList.get(position);
 
+        // set text for textview
         binding.tvFullName.setText(student.getFullName());
         binding.tvAge.setText(student.getAge());
         binding.tvAddress.setText(student.getAddress());
     }
 
+    // set back button
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_back, menu);

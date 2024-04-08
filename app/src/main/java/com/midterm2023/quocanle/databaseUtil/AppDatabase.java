@@ -11,15 +11,17 @@ import com.midterm2023.quocanle.model.Student;
 
 @Database(entities = {Student.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
-public abstract StudentDAO studentDao();
+    public abstract StudentDAO studentDao();
 
     private static AppDatabase instance;
 
     public static AppDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context,
-                    AppDatabase.class, "database-student").build();
+                    AppDatabase.class, context.getApplicationInfo().dataDir + "/databases/database-student").build();
         }
         return instance;
     }
+
+
 }

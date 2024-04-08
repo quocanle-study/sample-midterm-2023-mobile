@@ -9,6 +9,7 @@ import com.midterm2023.quocanle.model.Student;
 
 import java.util.List;
 
+// Student DAO
 @Dao
 public interface StudentDAO {
     @Query("SELECT * FROM student")

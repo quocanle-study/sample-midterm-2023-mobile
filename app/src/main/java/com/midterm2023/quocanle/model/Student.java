@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+// Class này dùng để lưu thông tin của sinh viên
 @Entity
 public class Student {
     @PrimaryKey(autoGenerate = true)

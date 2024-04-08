@@ -30,10 +30,12 @@ public class MainActivity extends AppCompatActivity {
     private StudentDAO studentDao;
     private ArrayAdapter<Student> adapter;
 
+    // Constructor
     public MainActivity() {
         instance = this;
     }
 
+    // Hàm này trả về instance của MainActivity
     public static MainActivity getInstance() {
         return instance;
     }
@@ -50,14 +52,18 @@ public class MainActivity extends AppCompatActivity {
 //            return insets;
 //        });
 
+        // binding layout
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // set toolbar
         setSupportActionBar(binding.toolbar);
 
+        // get instance của database
         appDatabase = AppDatabase.getInstance(getApplicationContext());
         studentDao = appDatabase.studentDao();
 
+        // set adapter cho listview
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -82,9 +88,11 @@ public class MainActivity extends AppCompatActivity {
 
         binding.lvStudent.setAdapter(adapter);
 
+        // set click cho button add
         binding.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // check input
                 if (binding.etFullName.getText().toString().isEmpty() || binding.etAge.getText().toString().isEmpty() || binding.etAddress.getText().toString().isEmpty()) {
                     CharSequence text = "Please fill all fields";
                     int duration = Toast.LENGTH_SHORT;
@@ -92,7 +100,9 @@ public class MainActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(MainActivity.this, text, duration);
                     toast.show();
                     return;
-                } else if (!binding.etAge.getText().toString().matches("\\d+")) {
+                }
+                // check age
+                else if (!binding.etAge.getText().toString().matches("\\d+")) {
                     CharSequence text = "Age must be a number";
                     int duration = Toast.LENGTH_SHORT;
 
@@ -109,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                     toast.show();
                     return;
                 }
+                // add student
                 String fullName = binding.etFullName.getText().toString();
                 String age = binding.etAge.getText().toString();
                 String address = binding.etAddress.getText().toString();
@@ -135,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // set click cho listview
         binding.lvStudent.setOnItemClickListener((parent, view, position, id) -> {
             Intent intent = new Intent(MainActivity.this, DetailActivity.class);
             intent.putExtra("student", position);
